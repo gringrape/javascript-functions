@@ -16,8 +16,8 @@ const printCell = (cell, state) => {
 };
 
 const corners = (state = []) => {
-  const xArr = state.map(el => el[0]);
-  const yArr = state.map(el => el[1]);
+  const xArr = (state.length !== 0) ? state.map(el => el[0]) : [0];
+  const yArr = (state.length !== 0) ? state.map(el => el[1]) : [0];
   return {
     topRight: [Math.max(...xArr), Math.max(...yArr)],
     bottomLeft: [Math.min(...xArr), Math.min(...yArr)],
