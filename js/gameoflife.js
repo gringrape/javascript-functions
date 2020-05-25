@@ -24,7 +24,9 @@ const corners = (state = []) => {
   }
 };
 
-const printCells = (state) => {};
+const printCells = (state) => {
+  
+};
 
 const getNeighborsOf = ([x, y]) => {};
 
