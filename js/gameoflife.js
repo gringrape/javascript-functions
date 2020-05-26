@@ -26,23 +26,26 @@ const corners = (state = []) => {
 
 const printCells = (state) => {
   // step1. state 를 포함하는 최소 크기의 직사각형
-  const { topRight: [rowMin, colMax], bottomLeft: [rowMax, colMin] } = corners(state);
+  const { topRight: [xMax, yMax], bottomLeft: [xMin, yMin] } = corners(state);
   // step2. 직사각형의 모든 원소 2 dim
   let rect = [];
-  for (let row = rowMin; row <= rowMax; row++) {
+  for (let y = yMax; y >= yMin; y--) {
     rect.push([]);
-    for (let col = colMin; col <= colMax; col++) {
-      rect[row - rowMin].push([row, col]);
+    for (let x = xMin; x <= xMax; x++) {
+      rect[yMax - y].push([x, y]);
     }
   }
   // step3. 직사각형의 모든 원소를 프린트
   rect = rect.map(row => 
-    row.map(el => printCell(el, state))
+    row.map(el => 
+      printCell(el, state)
+    )
   );
   // step4. 프린트 결과를 조인
-  return rect
+  let result = rect
     .map(row => row.join(' '))
     .join('\\n');
+  return result;
 };
 
 const getNeighborsOf = ([x, y]) => {};
