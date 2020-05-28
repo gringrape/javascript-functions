@@ -44,7 +44,7 @@ const printCells = (state) => {
   // step4. 프린트 결과를 조인
   let result = rect
     .map(row => row.join(' '))
-    .join('\\n');
+    .join('\n');
   return result;
 };
 
@@ -88,9 +88,20 @@ const calculateNext = (state) => {
   return cells;
 };
 
-const iterate = (state, iterations) => {};
+const iterate = (state, iterations) => {
+  let states = [state];
+  for (let i = 0; i < iterations; i++) {
+    state = calculateNext(state);
+    states.push(state);
+  }
+  return states;
+};
 
-const main = (pattern, iterations) => {};
+const main = (pattern, iterations) => {
+  iterate(startPatterns[pattern], iterations) // states, array
+    .map(state => printCells(state)) // presentation strings , array
+    .forEach(print => console.log(print + "\n"));
+};
 
 const startPatterns = {
     rpentomino: [
