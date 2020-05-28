@@ -72,7 +72,21 @@ const willBeAlive = (cell, state) => {
     ((numberOfNeighbors) === 2 && contains.call(state, cell));
 };
 
-const calculateNext = (state) => {};
+const calculateNext = (state) => {
+  function *numbersBtw(start, end) {
+    while(start <= end) {
+      yield start++;
+    }
+  }
+  const corner = corners(state);
+  let {topRight: [xM, yM], bottomLeft: [xm, ym]} = corner;
+  xm--; xM++; ym--; yM++;
+  const range = Array.from(numbersBtw(xm, xM))
+    .map(el => [el, ym])
+    .flatMap(([x, ym]) => Array.from(numbersBtw(ym, yM)).map(y => [x, y]));
+  const cells = range.filter(cell => willBeAlive(cell, state));  
+  return cells;
+};
 
 const iterate = (state, iterations) => {};
 
